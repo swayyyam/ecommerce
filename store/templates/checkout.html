@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+
+        h1 {
+            text-align: center;
+            margin: 20px 0;
+            color: #007bff;
+        }
+
+        p {
+            text-align: center;
+            font-size: 18px;
+            margin: 10px 0;
+            color: #555;
+        }
+
+        form {
+            text-align: center;
+            margin: 20px auto;
+            max-width: 300px;
+        }
+
+        button {
+            background-color: #28a745;
+            color: #fff;
+            border: none;
+            padding: 15px 25px;
+            font-size: 18px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.2s;
+        }
+
+        button:hover {
+            background-color: #218838;
+            transform: scale(1.05);
+        }
+
+        button:focus {
+            outline: none;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Checkout</h1>
+    <p><strong>Total Price:</strong> {{ total_price }}</p>
+    <p><strong>Delivery Charges:</strong> {{ delivery_charges }}</p>
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit">Complete Purchase</button>
+    </form>
+
+</body>
+</html>

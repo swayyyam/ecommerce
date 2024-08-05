@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Homepage</title>
+    <style>
+        body, h1, h2, p, ul, input, button, select {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        header {
+            background-color: #131921;
+            color: #fff;
+            padding: 10px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 1.5em;
+        }
+
+        header .search-bar {
+            flex: 1;
+            margin: 0 20px;
+            display: flex;
+            align-items: center;
+            position: relative;
+        }
+
+        header .search-bar input[type="text"] {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 20px;
+            background-color: #fff;
+            color: #333;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+
+        header .search-bar input[type="text"]:focus {
+            border-color: #febd69;
+        }
+
+        header .search-bar button {
+            position: absolute;
+            right: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            padding: 10px 20px;
+            border: none;
+            background-color: #febd69;
+            color: #333;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 1em;
+            transition: background-color 0.3s, transform 0.2s;
+        }
+
+        header .search-bar button:hover {
+            background-color: #e5a00d;
+            transform: scale(1.05);
+        }
+
+        header nav {
+            display: flex;
+            gap: 15px;
+        }
+
+        header nav ul {
+            list-style: none;
+            display: flex;
+            gap: 15px;
+            padding: 0;
+            margin: 0;
+            align-items: center;
+        }
+
+        header nav li {
+            display: flex;
+            align-items: center;
+        }
+
+        header nav .nav-items a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 0.9em;
+            padding: 5px 10px;
+            border-radius: 3px;
+            margin-right: 10px;
+        }
+
+        header nav .nav-items a:hover {
+            background-color: #3a3a3a;
+        }
+
+        header nav .cart {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        header nav .cart img {
+            width: 24px;
+            height: 24px;
+        }
+
+        header form select {
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 20px;
+            background-color: #fff;
+            color: #333;
+            outline: none;
+            font-size: 0.9em;
+            transition: border-color 0.3s;
+            cursor: pointer;
+        }
+
+        header form select:focus {
+            border-color: #febd69;
+        }
+
+        header form label {
+            margin-right: 10px;
+            font-size: 0.9em;
+            color: #fff;
+        }
+
+        header form {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        main {
+            flex: 1;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .product-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+        }
+
+        .product-card {
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 10px;
+            width: 200px;
+            text-align: center;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .product-card img {
+            max-width: 100%;
+            height: auto;
+            border-bottom: 1px solid #ddd;
+            margin-bottom: 10px;
+        }
+
+        .product-card h3 {
+            font-size: 1.1em;
+            margin: 0;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .product-card p {
+            color: #777;
+            margin: 5px 0;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .product-actions {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+        }
+
+        .product-actions a {
+            display: inline-block;
+            padding: 10px 15px;
+            border-radius: 3px;
+            color: #fff;
+            text-decoration: none;
+            font-size: 0.9em;
+        }
+
+        .product-actions a.buy {
+            background-color: #28a745;
+        }
+
+        .product-actions a.add-to-cart {
+            background-color: #007bff;
+        }
+
+        .product-actions a.buy:hover {
+            background-color: #218838;
+        }
+
+        .product-actions a.add-to-cart:hover {
+            background-color: #0056b3;
+        }
+
+        footer {
+            background-color: #131921;
+            color: #fff;
+            text-align: center;
+            padding: 10px 0;
+            flex-shrink: 0;
+        }
+    </style>
+</head>
+<body>
+    {% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+            <li class="{{ message.tags }}">{{ message }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+    
+    <header>
+        <h1>Amazon</h1>
+        <div class="search-bar">
+            <form action="{% url 'search' %}" method="get" style="width: 100%; display: flex; align-items: center;">
+                <input type="text" name="q" value="{{ query }}" placeholder="Search products...">
+                <button type="submit">Search</button>
+            </form>
+        </div>
+        <nav>
+            <ul>
+                <form method="GET" action="{% url 'homepage' %}">
+                    <label for="category">Select Category:</label>
+                    <select id="category" name="category" onchange="this.form.submit()">
+                        <option value="">All Categories</option>
+                        {% for code, name in categories %}
+                            <option value="{{ code }}" {% if code == request.GET.category %}selected{% endif %}>
+                                {{ name }}
+                            </option>
+                        {% endfor %}
+                    </select>
+                </form>
+                
+                <li class="nav-items">
+                    {% if user.is_authenticated %}
+                        <span class="username">Hello, {{ user.first_name }}!</span>
+                        <a href="{% url 'logout' %}" id="logout-button">Logout</a>
+                    {% else %}
+                        <a href="{% url 'register' %}" id="register-button">Register</a>
+                        <a href="{% url 'login' %}" id="login-button">Login</a>
+                    {% endif %}
+                    <a href="{% url 'viewcart' %}" class="cart">
+                        <img src="https://cdn-icons-png.flaticon.com/128/2331/2331970.png" alt="Cart">
+                        <span>Cart</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <h2>Welcome to Amazon</h2>
+        <p>Find your favorite products at unbeatable prices!</p>
+
+        {% if request.user.is_superuser %}
+        <a href="{% url 'create' %}" id="create-button">Create</a>
+        {% endif %}
+
+        <!-- Displaying products -->
+        <div class="product-grid">
+            {% for product in products %}
+                <div class="product-card">
+                    <img src="{% if product.image %}{{ product.image.url }}{% endif %}" alt="{{ product.name }}">
+                    <h3>{{ product.name }}</h3>
+                    <p>Rs.{{ product.price }}</p>
+                    <p>{{ product.description }}</p>
+                    <p>{{ product.product_type }}</p>
+                    <div class="product-actions">
+                        <a href="{% url 'cart' product.id %}" class="add-to-cart">Add to Cart</a>
+                    </div>
+                </div>
+            {% empty %}
+                <p>No products available.</p>
+            {% endfor %}
+        </div>
+    </main>
+    <footer>
+        <p>&copy; 2024 MyOnlineStore. All rights reserved.</p>
+    </footer>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
